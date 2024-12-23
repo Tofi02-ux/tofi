@@ -12,7 +12,12 @@
     <div class="container">
         <h1>Тестовое обращение</h1>
         <form id="autofill-form" method="GET" action="https://frontoffice.open-almaty.kz/create-appeal" target="_blank">
-            <label for="appealText"> </label>
+            <label for="appealType">Тип обращения:</label>
+            <select id="appealType" name="appealType">
+                <option value="app">Обращение по поводу приложения</option>
+                <option value="transport">Обращение по поводу транспорта</option>
+            </select>
+            <label for="appealText">Текст обращения:</label>
             <textarea id="appealText" name="appealText">Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...</textarea>
             <button type="submit">Перейти на сайт для подачи обращения</button>
         </form>
@@ -23,7 +28,14 @@
 
     <script>
         const appealTextArea = document.getElementById('appealText');
+        const appealTypeSelect = document.getElementById('appealType');
         const defaultText = 'Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...';
+
+        function getDeviceInfo() {
+            const platform = navigator.platform || 'Неизвестная платформа';
+            const userAgent = navigator.userAgent || 'Неизвестный пользовательский агент';
+            return `Платформа: ${platform}\n Модель устройства/браузера: ${userAgent}`;
+        }
 
         appealTextArea.addEventListener('focus', () => {
             if (appealTextArea.value === defaultText) {
@@ -38,14 +50,20 @@
         });
 
         document.getElementById('sendEmailButton').addEventListener('click', () => {
-            const appealText = appealTextArea.value;
+            const appealText = appealTextArea.value.trim();
+            const appealType = appealTypeSelect.value;
             const recipient = 'info@onay.kz';
-            const subject = 'Обращение через форму';
-            const body = `Текст обращения:\n${appealText}`;
+            const subject = 'Тестовое обращение';
+            let body = `Текст обращения:\n${appealText}`;
 
-            if (appealText.trim() === '' || appealText === defaultText) {
+            if (appealText === '' || appealText === defaultText) {
                 alert('Пожалуйста, заполните текст обращения перед отправкой.');
                 return;
+            }
+
+            if (appealType === 'app') {
+                const deviceInfo = getDeviceInfo();
+                body += `\n\nДополнительная информация об устройстве:\n${deviceInfo}`;
             }
 
             try {
