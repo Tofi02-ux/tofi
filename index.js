@@ -1,41 +1,45 @@
-const appealTextArea = document.getElementById('appealText');
-const appealTypeSelect = document.getElementById('appealType');
-const defaultText = 'Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...';
+document.addEventListener('DOMContentLoaded', function () {
+    const appealTextArea = document.getElementById('appealText');
+    const appealTypeSelect = document.getElementById('appealType');
+    const defaultText = 'Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...';
 
-appealTextArea.addEventListener('focus', () => {
-    if (appealTextArea.value === defaultText) {
-        appealTextArea.value = '';
-    }
-});
+    appealTextArea.addEventListener('focus', () => {
+        if (appealTextArea.value === defaultText) {
+            appealTextArea.value = '';
+        }
+    });
 
-appealTextArea.addEventListener('blur', () => {
-    if (appealTextArea.value.trim() === '') {
-        appealTextArea.value = defaultText;
-    }
-});
+    appealTextArea.addEventListener('blur', () => {
+        if (appealTextArea.value.trim() === '') {
+            appealTextArea.value = defaultText;
+        }
+    });
 
-document.getElementById('sendEmailButton').addEventListener('click', () => {
-    const appealText = appealTextArea.value.trim();
-    const appealType = appealTypeSelect.value;
-    const recipient = 'info@onay.kz';
-    const subject = 'Тестовое обращение';
-    const platform = navigator.platform || 'Неизвестно';
-    const userAgent = navigator.userAgent || 'Неизвестно';
-    let body = `Текст обращения:\n${appealText}`;
+    document.getElementById('sendEmailButton').addEventListener('click', function () {
+        const appealText = appealTextArea.value.trim();
+        const appealType = appealTypeSelect.value;
+        const recipient = 'info@onay.kz';
+        const subject = 'Тестовое обращение';
+        const platform = navigator.platform || 'Неизвестно';
+        const userAgent = navigator.userAgent || 'Неизвестно';
+        let body = `Текст обращения:\n${appealText}`;
 
-    if (appealText === '' || appealText === defaultText) {
-        alert('Пожалуйста, заполните текст обращения перед отправкой.');
-        return;
-    }
+        if (appealText === '' || appealText === defaultText) {
+            alert('Пожалуйста, заполните текст обращения перед отправкой.');
+            return;
+        }
 
-    if (appealType === 'app') {
-        body += `\n\nДополнительная информация об устройстве:\nПлатформа: ${platform}\nМодель устройства/браузера: ${userAgent}`;
-    }
+        if (appealType === 'app') {
+            body += `\n\nДополнительная информация об устройстве:\nПлатформа: ${platform}\nМодель устройства/браузера: ${userAgent}`;
+        }
 
-    try {
-        window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    } catch (error) {
-        console.error('Ошибка при отправке письма:', error);
-        alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
-    }
+        const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        try {
+            window.location.href = mailtoLink;
+        } catch (error) {
+            console.error('Ошибка при отправке письма:', error);
+            alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
+        }
+    });
 });
