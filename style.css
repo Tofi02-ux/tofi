@@ -73,10 +73,42 @@
         }
 
         textarea::placeholder {
-            color: rgba(0, 0, 0, 0.3); /* Более прозрачный цвет */
+            color: rgba(0, 0, 0, 0.3);
         }
 
         textarea {
             background: rgba(0, 0, 0, 0.03);
             height: 100px;
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 16px;
+            }
+            .header p {
+                font-size: 12px;
+            }
+            input, textarea, select, button {
+                padding: 10px;
+            }
+            button {
+                font-size: 14px;
+                font-weight: normal;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                max-width: 600px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 800px;
+            }
         }
