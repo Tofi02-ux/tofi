@@ -1,40 +1,114 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
 }
+
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 15px;
 }
-h1 {
+
+.header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
     text-align: center;
 }
-textarea {
-    width: 100%;
-    height: 120px;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
+
+.header h1 {
+    margin: 0;
+    font-size: 18px;
 }
-button {
+
+.header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+
+form {
+    padding: 20px;
+}
+
+label {
     display: block;
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    text-align: left;
 }
+
+input, textarea, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
 button:hover {
     background-color: #0056b3;
 }
-.button-spacing {
-    margin-top: 20px;
+
+textarea::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+textarea {
+    background: rgba(0, 0, 0, 0.03);
+    height: 100px;
+}
+
+@media (max-width: 767px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    .header h1 {
+        font-size: 16px;
+    }
+    .header p {
+        font-size: 12px;
+    }
+    input, textarea, select, button {
+        padding: 10px;
+    }
+    button {
+        font-size: 14px;
+        font-weight: normal;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+    }
 }
