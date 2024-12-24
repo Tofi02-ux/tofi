@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
     <title>Форма обращения</title>
-    <style>
-    </style>
+    <!-- Подключаем внешний файл стилей -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Тестовое обращение</h1>
+        <div class="header">
+            <h1>Обратная связь</h1>
+            <p>Любые замечания или предложения будут полезны</p>
+        </div>
+
         <form id="autofill-form" method="GET" action="https://frontoffice.open-almaty.kz/create-appeal" target="_blank">
+            <label for="phoneNumber">Номер телефона:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Введите номер телефона">
+
             <label for="appealType">Тип обращения:</label>
             <select id="appealType" name="appealType">
                 <option value="app">Обращение по поводу приложения</option>
@@ -19,7 +25,7 @@
             </select>
 
             <label for="appealText">Текст обращения:</label>
-            <textarea id="appealText" name="appealText">Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...</textarea>
+            <textarea id="appealText" name="appealText" placeholder="Здравствуйте! Я хотел бы оставить обращение по следующему вопросу..."></textarea>
 
             <button type="submit">Перейти на сайт для подачи обращения</button>
         </form>
@@ -32,12 +38,18 @@
     <script>
         const appealTextArea = document.getElementById('appealText');
         const appealTypeSelect = document.getElementById('appealType');
+        const phoneNumberInput = document.getElementById('phoneNumber');
         const defaultText = 'Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...';
+
+        function getPhoneNumberFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('phone') || '';
+        }
 
         function getDeviceInfo() {
             const platform = navigator.platform || 'Неизвестная платформа';
             const userAgent = navigator.userAgent || 'Неизвестный пользовательский агент';
-            return `Платформа: ${platform}\n Модель устройства/браузера: ${userAgent}`;
+            return `Платформа: ${platform}\nМодель устройства/браузера: ${userAgent}`;
         }
 
         appealTextArea.addEventListener('focus', () => {
@@ -55,6 +67,7 @@
         document.getElementById('sendEmailButton').addEventListener('click', () => {
             const appealText = appealTextArea.value.trim();
             const appealType = appealTypeSelect.value;
+            const phoneNumber = phoneNumberInput.value.trim();
             const recipient = 'info@onay.kz';
             const subject = 'Тестовое обращение';
 
@@ -63,11 +76,16 @@
                 return;
             }
 
-            let body = `Текст обращения:\n${appealText}`;
+            if (phoneNumber === '') {
+                alert('Пожалуйста, введите номер телефона.');
+                return;
+            }
+
+            let body = `Номер телефона: ${phoneNumber}\n\nТекст обращения:\n${appealText}`;
 
             if (appealType === 'app') {
                 const deviceInfo = getDeviceInfo();
-                body += `\n\n Дополнительная информация об устройстве:\n${deviceInfo}`;
+                body += `\n\nДополнительная информация об устройстве:\n${deviceInfo}`;
             }
 
             try {
@@ -77,6 +95,8 @@
                 alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
             }
         });
+
+        phoneNumberInput.value = getPhoneNumberFromURL();
     </script>
 </body>
 </html>
