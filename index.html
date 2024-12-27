@@ -28,6 +28,7 @@
 
             <button type="submit" class="button-spacing">Перейти на сайт для подачи обращения</button>
         </form>
+
         <form id="sendEmailForm">
             <button type="button" id="sendEmailButton" class="button-spacing">Отправить письмо</button>
         </form>
@@ -42,7 +43,7 @@
         function getDeviceInfo() {
             const platform = navigator.platform || 'Неизвестная платформа';
             const userAgent = navigator.userAgent || 'Неизвестный пользовательский агент';
-            return `Платформа: ${platform}\nМодель устройства/браузера: ${userAgent}`;
+            return Платформа: ${platform}\nМодель устройства/браузера: ${userAgent};
         }
 
         appealTextArea.addEventListener('focus', () => {
@@ -74,15 +75,15 @@
                 return;
             }
 
-            let body = `Номер телефона: ${phoneNumber}\n\nТекст обращения:\n${appealText}`;
+            let body = Номер телефона: ${phoneNumber}\n\nТекст обращения:\n${appealText};
 
             if (appealType === 'app') {
                 const deviceInfo = getDeviceInfo();
-                body += `\n\nДополнительная информация об устройстве:\n${deviceInfo}`;
+                body += \n\nДополнительная информация об устройстве:\n${deviceInfo};
             }
 
             try {
-                window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)};
             } catch (error) {
                 console.error('Ошибка при отправке письма:', error);
                 alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
@@ -90,4 +91,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
