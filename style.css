@@ -81,6 +81,9 @@ textarea {
     height: 100px;
 }
 
+button {
+    margin-bottom: 10px;
+
 .button-spacing {
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
