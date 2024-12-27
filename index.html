@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Форма обращения</title>
-    <style>
-    </style>
 </head>
 <body>
     <div class="container">
@@ -17,7 +15,7 @@
 
         <form id="autofill-form" method="GET" action="https://frontoffice.open-almaty.kz/create-appeal" target="_blank">
             <label for="phoneNumber">Номер телефона:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Введите номер телефона">
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Введите номер телефона" pattern="^\+?[0-9\s\-]+$" required>
 
             <label for="appealType">Тип обращения:</label>
             <select id="appealType" name="appealType">
@@ -28,7 +26,7 @@
             <label for="appealText">Текст обращения:</label>
             <textarea id="appealText" name="appealText" placeholder="Здравствуйте! Я хотел бы оставить обращение по следующему вопросу..."></textarea>
 
-            <button type="submit">Перейти на сайт для подачи обращения</button>
+            <button type="submit" class="button-spacing">Перейти на сайт для подачи обращения</button>
         </form>
 
         <form id="sendEmailForm">
@@ -41,11 +39,6 @@
         const appealTypeSelect = document.getElementById('appealType');
         const phoneNumberInput = document.getElementById('phoneNumber');
         const defaultText = 'Здравствуйте! Я хотел бы оставить обращение по следующему вопросу...';
-
-        function getPhoneNumberFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('phone') || '';
-        }
 
         function getDeviceInfo() {
             const platform = navigator.platform || 'Неизвестная платформа';
@@ -96,8 +89,6 @@
                 alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
             }
         });
-
-        phoneNumberInput.value = getPhoneNumberFromURL();
     </script>
 </body>
 </html>
