@@ -1,12 +1,10 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css">
     <title>Форма обращения</title>
-    <style>
-    </style>
 </head>
 <body>
     <div class="container">
@@ -29,9 +27,9 @@
             <textarea id="appealText" name="appealText" placeholder="Здравствуйте! Я хотел бы оставить обращение по следующему вопросу..."></textarea>
 
             <button type="submit">Перейти на сайт для подачи обращения</button>
-        <form id="sendEmailForm">
-            <button type="button" id="sendEmailButton" class="button-spacing">Отправить письмо</button>
         </form>
+
+        <button type="button" id="sendEmailButton" class="button-spacing">Отправить письмо</button>
     </div>
 
     <script>
@@ -48,7 +46,7 @@
         function getDeviceInfo() {
             const platform = navigator.platform || 'Неизвестная платформа';
             const userAgent = navigator.userAgent || 'Неизвестный пользовательский агент';
-            return Платформа: ${platform}\nМодель устройства/браузера: ${userAgent};
+            return `Платформа: ${platform}\nМодель устройства/браузера: ${userAgent}`;
         }
 
         appealTextArea.addEventListener('focus', () => {
@@ -80,22 +78,18 @@
                 return;
             }
 
-            let body = Номер телефона: ${phoneNumber}\n\nТекст обращения:\n${appealText};
+            let body = `Номер телефона: ${phoneNumber}\n\nТекст обращения:\n${appealText}`;
 
             if (appealType === 'app') {
                 const deviceInfo = getDeviceInfo();
-                body += \n\nДополнительная информация об устройстве:\n${deviceInfo};
+                body += `\n\nДополнительная информация об устройстве:\n${deviceInfo}`;
             }
 
-            try {
-                window.location.href = mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)};
-            } catch (error) {
-                console.error('Ошибка при отправке письма:', error);
-                alert('Произошла ошибка при отправке письма. Проверьте настройки вашего почтового клиента.');
-            }
+            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
         });
 
         phoneNumberInput.value = getPhoneNumberFromURL();
     </script>
 </body>
-</html> 
+</html>
